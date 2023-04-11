@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Amiibo Selector</title>
+</head>
+<body>
+    <div id="sidebar" class="sidebar">
+        <h2>Select a Game</h2>
+        <select name="game-filter">
+            <option>Legend of Zelda</option>
+            <option selected>Super Smash Bros</option>
+            <option>Find longest name, format space</option>
+        </select>
+        <h2>Choose Your Character</h2>
+        <div class = "character-list">
+            <li><button id="Mario">Mario</button></li>
+            <li><button id="Isabelle">Isabelle</button></li>
+            <li><button id="Captain Falcon">Captain Falcon</button></li>
+            <li><button id="Find longest name, format space">Find longest name, format space</button></li>
+        </div>
+    </div>
+    <div class="amiibo-container">
+        <p class = "amiibo-info">Amiibo Name</p>
+        <img class = "amiibo-image" src="https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_01810000-024b0502.png">
+        <p class = "amiibo-info">I do this when used!</p>
+    </div>
+    <div id="game-list-left" class="game-list-left">
+        <li>Game 1</li>
+        <li>Game 3</li>
+        <li>Game 5</li>
+        <li>Game 7</li>
+    </div>
+    <div id="game-list-right" class="game-list-right">
+        <li>Game 2</li>
+        <li>Game 4</li>
+        <li>Game 6</li>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

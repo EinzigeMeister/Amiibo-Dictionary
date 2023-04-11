@@ -1,0 +1,43 @@
+title {
+    font-size: 2em;
+    color: #E70009;
+}
+.sidebar {
+    padding-top: 40px;
+    position: absolute; /*required to force other elements away*/
+    height: 100%;
+    width: 300px;
+    color: Blue;
+    overflow-x: hidden;
+    background-color: pink;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+select {
+    font-size: 1em;
+    color: blue;
+}
+
+.amiibo-container {
+    margin-left: 300px;
+    padding: 0px 10px;
+    height: 50%;
+}
+.amiibo-info {
+    position: relative;
+    left: 50%;
+}
+.amiibo-image {
+    position: relative;
+    left: 50%;
+}
+.game-list-left {
+    margin-left: 300px;
+    width: 50%;
+    position: absolute; 
+}
+.game-list-right {
+    float: right;
+    width: 50%;
+}
