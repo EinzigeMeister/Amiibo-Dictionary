@@ -16,20 +16,43 @@ while(gameFilter.length>0){
 //5.c. select first game's usage and display under image
 //6. add filter 'change' action event to update characters based on selected game
 //7. add game 'click' action event to update amiibo based on selected game
-//8. stretch: add 'hover' action to rotate/wiggle amiibo when hovered
-fetch(fetchGameSeriesURL).then(resp=>resp.json()).then(seriesList=>{
-    //generate filter options
-    const series = []
-    for (item of seriesList.amiibo){
-        //only adds new names
-        // if (series.indexOf(item.name)===-1){
-        //     series.push(item.name)
-        //     const optionElement = document.createElement('option')
-        //     if(series.length===1) optionElement.setAttribute('selected','true')
-        //     optionElement.innerHTML=item.name
-        //     optionElement.value=item.name
-        //     gameFilter.append(optionElement)
-        // } //commented out API call & manually added options to minimize usage during development
+//8. stretch: add 'hover' action to rotate/wiggle amiibo when hovered (COMPLETE)
+
+//commented out API call & manually added options to minimize usage during development
+// fetch(fetchGameSeriesURL).then(resp=>resp.json()).then(seriesList=>{
+//     //generate filter options
+//     const series = []
+//     for (item of seriesList.amiibo){
+//         //only adds new names
+//          if (series.indexOf(item.name)===-1){
+//             series.push(item.name)
+//          } 
+//     }
+//     series.sort()
+//     for (game of series){ //displays sorted filter
+//         const optionElement = document.createElement('option')
+//         optionElement.innerHTML=item.name
+//         optionElement.value=item.name
+//         gameFilter.append(optionElement) 
+//     }
+// })
+const gameOptionNodes = document.querySelectorAll('option')
+const gameOptions =[]
+ gameOptionNodes.forEach(option=>gameOptions.push(option.value))
+gameOptions.sort();
+while(gameFilter.length>0){
+    gameFilter.removeChild(gameFilter.firstElementChild)
+}
+gameOptions.forEach(option=>{
+    const newOption = document.createElement('option')
+    newOption.innerHTML = option
+    newOption.value = option
+    gameFilter.append(newOption)
+})
+fetch("http://localhost:3000/amiibo").then(resp=>resp.json()).then(amiiboObjs=>{
+    console.log(amiiboObjs)
+    //*****Array iteration***** add characters to each game series
+    for(amiibo of amiiboObjs){
+        
     }
-    
 })
