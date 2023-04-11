@@ -22,14 +22,14 @@ fetch(fetchGameSeriesURL).then(resp=>resp.json()).then(seriesList=>{
     const series = []
     for (item of seriesList.amiibo){
         //only adds new names
-        if (series.indexOf(item.name)===-1){
-            series.push(item.name)
-            const optionElement = document.createElement('option')
-            if(series.length===1) optionElement.setAttribute('selected','true')
-            optionElement.innerHTML=item.name
-            optionElement.value=item.name
-            gameFilter.append(optionElement)
-        }
+        // if (series.indexOf(item.name)===-1){
+        //     series.push(item.name)
+        //     const optionElement = document.createElement('option')
+        //     if(series.length===1) optionElement.setAttribute('selected','true')
+        //     optionElement.innerHTML=item.name
+        //     optionElement.value=item.name
+        //     gameFilter.append(optionElement)
+        // } //commented out API call & manually added options to minimize usage during development
     }
     
 })
