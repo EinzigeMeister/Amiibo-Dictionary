@@ -1,6 +1,39 @@
+select {
+    font-size: 1em;
+    color: blue;
+}
 title {
     font-size: 2em;
     color: #E70009;
+}
+.amiibo-container {
+    margin-left: 300px;
+    padding: 0px 10px;
+    height: 50%;
+}
+.amiibo-image {
+    position: relative;
+    left: 50%;
+}
+.amiibo-info {
+    position: relative;
+    left: 50%;
+}
+.character-list button{
+    border:1px solid black;
+    background-color:pink;
+}
+.character-list button:hover{
+    background-color: salmon;
+}
+.game-list-left {
+    margin-left: 300px;
+    width: 50%;
+    position: absolute; 
+}
+.game-list-right {
+    float: right;
+    width: 50%;
 }
 .sidebar {
     padding-top: 40px;
@@ -14,30 +47,6 @@ title {
     top: 0;
     left: 0;
 }
-select {
-    font-size: 1em;
-    color: blue;
-}
-
-.amiibo-container {
-    margin-left: 300px;
-    padding: 0px 10px;
-    height: 50%;
-}
-.amiibo-info {
-    position: relative;
-    left: 50%;
-}
-.amiibo-image {
-    position: relative;
-    left: 50%;
-}
-.game-list-left {
-    margin-left: 300px;
-    width: 50%;
-    position: absolute; 
-}
-.game-list-right {
-    float: right;
-    width: 50%;
+.sidebar select {
+    background-color: pink;
 }
