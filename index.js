@@ -13,13 +13,13 @@ while(gameFilter.length>0){
 //1. generate amiibo object list (COMPLETE)
 //2. generate filter options (COMPLETE)
 //3. set first filter option to selected (COMPLETE)
-//4. display first filter options characters
-//5. show the first character's amiibo on the amiibo container
-//5.a. update amiibo name and image
-//5.b. update amiibo game list (left & right)
-//5.c. select first game's usage and display under image
+//4. display first filter options characters (COMPLETE)
+//5. show the first character's amiibo on the amiibo container (COMPLETE)
+//5.a. update amiibo name and image (COMPLETE)
+//5.b. update amiibo game list (COMPLETE)
+//5.c. select first game's usage and display under image (COMPLETE)
 //6. add filter 'change' action event to update characters based on selected game
-//7. add game 'click' action event to update amiibo based on selected game
+//7. add game 'click' action event to update amiibo based on selected game (COMPLETE)
 //8. stretch: add 'hover' action to rotate/wiggle amiibo when hovered (COMPLETE)
 
 //commented out API call & manually added options to minimize usage during development
@@ -70,7 +70,7 @@ function refreshGameFilter(){
         newOption.value = option
         gameFilter.append(newOption)
     })
-    gameFilter[0].setAttribute('selected', 'true')
+    gameFilter[1].setAttribute('selected', 'true')
 }
 
 function clearCharacterList(){
@@ -108,12 +108,14 @@ function resetSelectedAmiibo(character){
     document.getElementById('amiibo-image').src=character.image
     document.getElementById('amiibo-name').innerHTML=character.name
     firstDisplayed = false
+
     if(character.gamesSwitch.length>0){
         character.gamesSwitch.forEach(game=>addGame(game, 'switch'))
         updateUsage(character.gamesSwitch[0])
         firstDisplayed = true
     }
     else addGame(nullGame, 'switch')
+
     if(character.games3DS.length>0){
         character.games3DS.forEach(game=>addGame(game, '3ds'))
         if(!firstDisplayed){
@@ -122,6 +124,7 @@ function resetSelectedAmiibo(character){
         }
     }
     else addGame(nullGame, '3ds')
+
     if(character.gamesWiiU.length>0){
         character.gamesWiiU.forEach(game=>addGame(game, 'wii-u'))
         if(!firstDisplayed){
@@ -130,23 +133,20 @@ function resetSelectedAmiibo(character){
          }
     }
     else addGame(nullGame, 'wii-u')
-    //TODO- update initial usage
+    
 }
-//TODO - add game action events to update "usage"
 function addGame(game, system){
     const newGameObj = document.createElement('p')
     newGameObj.innerHTML = game.gameName
+    //only add event listeners for valid games
     if(game.gameName.localeCompare('None')!=0){
-        //add event listener
-        game.gameName
         newGameObj.addEventListener('click', updateUsage.bind(null, game))
     }
     document.getElementById(`game-list-${system}`).append(newGameObj)
 }
-
+//updates the usage text for the selected game
 function updateUsage(game){
     let usageText = game.amiiboUsage[0].Usage
-    console.log(usageText)
     usageText = usageText.slice(0,1).toLowerCase() + usageText.slice(1)
     document.getElementById('amiibo-usage').innerHTML= `In ${game.gameName}, you can ${usageText}`
 }
