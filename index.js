@@ -1,5 +1,10 @@
 console.log(`for more information about data drawn from this page, see https://www.amiiboapi.com/docs/`)
 const gameFilter = document.getElementById('sidebar').querySelector('select');
+gameFilter.addEventListener('change', e=>{
+    console.log(e.target.value)
+    clearCharacterList()
+    refreshCharacterList(e.target.value)
+})
 const characterList = document.getElementById('character-list')
 const fetchGameSeriesURL = `https://www.amiiboapi.com/api/gameseries`
 let amiiboLib = []
@@ -17,7 +22,7 @@ let gameList = []
 //7. add game 'click' action event to update amiibo based on selected game (COMPLETE)
 //8. stretch: add 'hover' action to rotate/wiggle amiibo when hovered (COMPLETE)
 
-//commented out API call & manually added options to minimize usage during development
+//commented out API call & hard coded options into index.html to minimize API data usage during development
 // fetch(fetchGameSeriesURL).then(resp=>resp.json()).then(seriesList=>{
 //     //generate filter options
 //     const series = []
@@ -46,7 +51,7 @@ gameOptionNodes.forEach(option=>gameOptions.push(option.value))
 //obtain amiibos. The fetch from https://www.amiiboapi.com/api/amiibo/?type=figure&showusage was used to generate local db
 fetch("http://localhost:3000/amiibo").then(resp=>resp.json()).then(amiiboObjs=>{
     amiiboLib=amiiboObjs
-    refreshCharacterList()
+    refreshCharacterList(gameFilter.value)
 })
 
 
@@ -69,16 +74,16 @@ function refreshGameFilter(){
 }
 
 function clearCharacterList(){
-    while(characterList.length>0){
-        characterList.removeChild(characterList.firstElementChild)
-    }
+    characterList.replaceChildren()
 }
-function refreshCharacterList(){
+function refreshCharacterList(seriesName){
     //creates a modified array of selected filter
+    filteredCharacters=[]
     filteredCharacters = amiiboLib.filter(amiibo=>{
-        if(amiibo.gameSeries===gameFilter.value)  return true
+        if(amiibo.gameSeries.localeCompare(seriesName)==0)  return true
         else return false
     })
+    if(filteredCharacters.length==0) return
     filteredCharacters.sort((a, b) => a.name.localeCompare(b.name))
     //displays each character from the array
     filteredCharacters.forEach(character=>{
@@ -93,7 +98,8 @@ function refreshCharacterList(){
     resetSelectedAmiibo(filteredCharacters[0])
 }
 function resetSelectedAmiibo(character){
-    //TODO - clear current game list
+
+    if(character==undefined)return
     clearGameList('3ds')
     clearGameList('switch')
     clearGameList('wii-u')
