@@ -48,7 +48,7 @@ gameOptionNodes.forEach(option=>gameOptions.push(option.value))
  gameOptions.sort();
  clearGameFilter();
  refreshGameFilter();
-//obtain amiibos fetch from https://www.amiiboapi.com/api/amiibo/?type=figure&showusage used to generate db
+//obtain amiibos. The fetch from https://www.amiiboapi.com/api/amiibo/?type=figure&showusage was used to generate local db
 fetch("http://localhost:3000/amiibo").then(resp=>resp.json()).then(amiiboObjs=>{
     amiiboLib=amiiboObjs
     refreshCharacterList()
@@ -97,21 +97,56 @@ function refreshCharacterList(){
     resetSelectedAmiibo(filteredCharacters[0])
 }
 function resetSelectedAmiibo(character){
-    console.log(character)
-    gameList=[]
     //TODO - clear current game list
     //add new game list and update Amiibo
+    nullGame = {
+        gameName: 'None',
+        amiiboUsage: {
+            usage:'No game selected. Select a game to show usage'
+        }
+    }
     document.getElementById('amiibo-image').src=character.image
     document.getElementById('amiibo-name').innerHTML=character.name
-    character.games3DS.forEach(game=>addGame(game, '3ds'))
-    character.gamesSwitch.forEach(game=>addGame(game, 'switch'))
-    character.gamesWiiU.forEach(game=>addGame(game, 'wii-u'))
+    firstDisplayed = false
+    if(character.gamesSwitch.length>0){
+        character.gamesSwitch.forEach(game=>addGame(game, 'switch'))
+        updateUsage(character.gamesSwitch[0])
+        firstDisplayed = true
+    }
+    else addGame(nullGame, 'switch')
+    if(character.games3DS.length>0){
+        character.games3DS.forEach(game=>addGame(game, '3ds'))
+        if(!firstDisplayed){
+           updateUsage(character.games3DS[0])
+           firstDisplayed = true
+        }
+    }
+    else addGame(nullGame, '3ds')
+    if(character.gamesWiiU.length>0){
+        character.gamesWiiU.forEach(game=>addGame(game, 'wii-u'))
+        if(!firstDisplayed){
+            updateUsage(character.games3DS[0])
+            firstDisplayed = true
+         }
+    }
+    else addGame(nullGame, 'wii-u')
     //TODO- update initial usage
 }
 //TODO - add game action events to update "usage"
 function addGame(game, system){
     const newGameObj = document.createElement('p')
     newGameObj.innerHTML = game.gameName
+    if(game.gameName.localeCompare('None')!=0){
+        //add event listener
+        game.gameName
+        newGameObj.addEventListener('click', updateUsage.bind(null, game))
+    }
     document.getElementById(`game-list-${system}`).append(newGameObj)
 }
 
+function updateUsage(game){
+    let usageText = game.amiiboUsage[0].Usage
+    console.log(usageText)
+    usageText = usageText.slice(0,1).toLowerCase() + usageText.slice(1)
+    document.getElementById('amiibo-usage').innerHTML= `In ${game.gameName}, you can ${usageText}`
+}

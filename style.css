@@ -23,7 +23,15 @@ title {
 }
 .amiibo-name {
     font-size: 3em;
+    position: relative;
     color: blue
+}
+.amiibo-usage {
+    left:-300px;
+    width: 800px;
+    word-wrap: break-word;
+    text-align: center;
+    position: relative;
 }
 .character-list button{
     border:1px solid black;
