@@ -7,21 +7,23 @@ title {
     color: #E70009;
 }
 .amiibo-container {
-    margin-left: 300px;
+    margin-left: 100px;
     padding: 0px 10px;
     height: 50%;
 }
-.amiibo-image {
+.amiibo-container{
     position: relative;
     left: 50%;
+}
+.amiibo-image {
     transition: transform .3s ease-in-out;
 }
 .amiibo-image:hover{
     transform: rotate(30deg);
 }
-.amiibo-info {
-    position: relative;
-    left: 50%;
+.amiibo-name {
+    font-size: 3em;
+    color: blue
 }
 .character-list button{
     border:1px solid black;
@@ -30,14 +32,25 @@ title {
 .character-list button:hover{
     background-color: salmon;
 }
-.game-list-left {
-    margin-left: 300px;
-    width: 50%;
+.game-header {
+    text-decoration: underline;
+}
+.game-list-switch {
+    left: -300px;
+    width: 250px;
+    word-wrap: break-word;
     position: absolute; 
 }
-.game-list-right {
-    float: right;
-    width: 50%;
+.game-list-wii-u {
+    left: 300px;
+    width: 250px;
+    word-wrap: break-word;
+    position: absolute;
+}
+.game-list-3ds {
+    position: absolute;
+    width: 250px;
+    word-wrap: break-word;
 }
 .sidebar {
     padding-top: 40px;

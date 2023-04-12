@@ -9,29 +9,28 @@
 </head>
 <body>
     <div id="sidebar" class="sidebar">
-        <h2>Select a Game</h2>
+        <h2>Select a Game Series</h2>
         <select name="game-filter">
                 <option value="ARMS">ARMS</option><option value="Animal Crossing">Animal Crossing</option><option value="Banjo Kazooie">Banjo Kazooie</option><option value="Bayonetta">Bayonetta</option><option value="BoxBoy!">BoxBoy!</option><option value="Breath of the Wild">Breath of the Wild</option><option value="Castlevania">Castlevania</option><option value="Chibi Robo">Chibi Robo</option><option value="Classic Nintendo">Classic Nintendo</option><option value="Dark Souls">Dark Souls</option><option value="Diablo">Diablo</option><option value="Donkey Kong">Donkey Kong</option><option value="Dragon Quest">Dragon Quest</option><option value="Earthbound">Earthbound</option><option value="F-Zero">F-Zero</option><option value="Fatal Fury">Fatal Fury</option><option value="Final Fantasy">Final Fantasy</option><option value="Fire Emblem">Fire Emblem</option><option value="Kellogs">Kellogs</option><option value="Kid Icarus">Kid Icarus</option><option value="Kirby">Kirby</option><option value="Mario Sports Superstars">Mario Sports Superstars</option><option value="Megaman">Megaman</option><option value="Metal Gear Solid">Metal Gear Solid</option><option value="Metroid">Metroid</option><option value="Mii">Mii</option><option value="Minecraft">Minecraft</option><option value="Monster Hunter">Monster Hunter</option><option value="Pac-man">Pac-man</option><option value="Persona">Persona</option><option value="Pikmin">Pikmin</option><option value="Pokemon">Pokemon</option><option value="Power Pros">Power Pros</option><option value="Punch Out">Punch Out</option><option value="Shovel Knight">Shovel Knight</option><option value="Sonic">Sonic</option><option value="Splatoon">Splatoon</option><option value="Star Fox">Star Fox</option><option value="Street fighter">Street fighter</option><option value="Super Mario">Super Mario</option><option value="Tekken">Tekken</option><option value="The Legend of Zelda">The Legend of Zelda</option><option value="Wii Fit">Wii Fit</option><option value="Xenoblade">Xenoblade</option><option value="Yoshi's Woolly World">Yoshi's Woolly World</option><option value="Yu-Gi-Oh!">Yu-Gi-Oh!</option>
         </select>
         <h2>Choose Your Character</h2>
-        <div class = "character-list">
+        <div id="character-list" class ="character-list">
         </div>
     </div>
     <div class="amiibo-container">
-        <p class = "amiibo-info">Amiibo Name</p>
-        <img class = "amiibo-image" src="https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_01810000-024b0502.png">
-        <p class = "amiibo-info">When game is selected, I say what I do!</p>
-    </div>
-    <div id="game-list-left" class="game-list-left">
-        <li>Game 1</li>
-        <li>Game 3</li>
-        <li>Game 5</li>
-        <li>Game 7</li>
-    </div>
-    <div id="game-list-right" class="game-list-right">
-        <li>Game 2</li>
-        <li>Game 4</li>
-        <li>Game 6</li>
+        <p id="amiibo-name" class = "amiibo-name">Amiibo Name</p>
+        <img id="amiibo-image" class = "amiibo-image" src="">
+        <br><br>
+        <p class = "amiibo-usage" id="amiibo-usage">When game is selected, I say what I do!</p>
+        <div id="game-list-switch" class="game-list-switch">
+            <p class="game-header">Switch Games</p>
+        </div>
+        <div id="game-list-3ds" class="game-list-3ds"> 
+            <p class="game-header">3DS Games</p>
+        </div>
+        <div id="game-list-wii-u" class="game-list-wii-u">
+            <p class="game-header">Wii U Games</p>
+        </div>
     </div>
     <script src="index.js"></script>
 </body>
