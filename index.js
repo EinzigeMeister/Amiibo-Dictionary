@@ -1,49 +1,28 @@
-console.log(`for more information about data drawn from this page, see https://www.amiiboapi.com/docs/`)
+console.log(`For more information about data drawn from this page, see https://www.amiiboapi.com/docs/`)
 const gameFilter = document.getElementById('sidebar').querySelector('select');
+//Use filter to select game series and populate characters
 gameFilter.addEventListener('change', e=>{
-    console.log(e.target.value)
     clearCharacterList()
     refreshCharacterList(e.target.value)
 })
 const characterList = document.getElementById('character-list')
-const fetchGameSeriesURL = `https://www.amiiboapi.com/api/gameseries`
 let amiiboLib = []
 let filteredCharacters = []
 let gameList = []
 
-//commented out API call & hard coded options into index.html to minimize API data usage during development
-// fetch(fetchGameSeriesURL).then(resp=>resp.json()).then(seriesList=>{
-//     //generate filter options
-//     const series = []
-//     for (item of seriesList.amiibo){
-//         //only adds new names
-//          if (series.indexOf(item.name)===-1){
-//             series.push(item.name)
-//          } 
-//     }
-//     series.sort()
-//     for (game of series){ //displays sorted filter
-//         const optionElement = document.createElement('option')
-//         optionElement.innerHTML=item.name
-//         optionElement.value=item.name
-//         gameFilter.append(optionElement) 
-//     }
-// })
-
-//Filter characters based off gameseries
+//Generate list of game series' to update filter 
 const gameOptionNodes = document.querySelectorAll('option')
 const gameOptions =[]
 gameOptionNodes.forEach(option=>gameOptions.push(option.value))
  gameOptions.sort();
  clearGameFilter();
  refreshGameFilter();
-//obtain amiibos. The fetch from https://www.amiiboapi.com/api/amiibo/?type=figure&showusage was used to generate local db
+
+//obtain amiibos. The fetch from https://www.amiiboapi.com/api/amiibo/?showusage was used to generate local db
 fetch("http://localhost:3000/amiibo").then(resp=>resp.json()).then(amiiboObjs=>{
     amiiboLib=amiiboObjs
     refreshCharacterList(gameFilter.value)
 })
-
-
 
 //Helper functions
 function clearGameFilter(){
@@ -51,7 +30,7 @@ function clearGameFilter(){
         gameFilter.removeChild(gameFilter.firstElementChild)
     }
 }
-//add action event for 'change' to refresh character list
+//update the filter if any new game series are added
 function refreshGameFilter(){
     gameOptions.forEach(option=>{
         const newOption = document.createElement('option')
@@ -59,12 +38,15 @@ function refreshGameFilter(){
         newOption.value = option
         gameFilter.append(newOption)
     })
-    gameFilter[1].setAttribute('selected', 'true')
+    //force a selected filter
+    gameFilter[0].setAttribute('selected', 'true')
 }
 
+//empties current character list
 function clearCharacterList(){
     characterList.replaceChildren()
 }
+
 function refreshCharacterList(seriesName){
     //creates a modified array of selected filter
     filteredCharacters=[]
@@ -72,7 +54,6 @@ function refreshCharacterList(seriesName){
         if(amiibo.gameSeries.localeCompare(seriesName)==0)  return true
         else return false
     })
-    if(filteredCharacters.length==0) return
     filteredCharacters.sort((a, b) => a.name.localeCompare(b.name))
     //displays each character from the array
     filteredCharacters.forEach(character=>{
