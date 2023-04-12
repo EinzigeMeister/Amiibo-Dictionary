@@ -87,7 +87,6 @@ function refreshCharacterList(seriesName){
     resetSelectedAmiibo(filteredCharacters[0])
 }
 function resetSelectedAmiibo(character){
-
     if(character==undefined)return
     clearGameList('3ds')
     clearGameList('switch')

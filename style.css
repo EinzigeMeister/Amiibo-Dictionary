@@ -16,6 +16,9 @@ title {
     left: 50%;
 }
 .amiibo-image {
+    max-height: 600px;
+    max-width: 600px;
+    object-fit: contain;
     transition: transform .3s ease-in-out;
 }
 .amiibo-image:hover{
