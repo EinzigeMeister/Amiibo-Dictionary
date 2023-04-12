@@ -10,17 +10,6 @@ const fetchGameSeriesURL = `https://www.amiiboapi.com/api/gameseries`
 let amiiboLib = []
 let filteredCharacters = []
 let gameList = []
-//1. generate amiibo object list (COMPLETE)
-//2. generate filter options (COMPLETE)
-//3. set first filter option to selected (COMPLETE)
-//4. display first filter options characters (COMPLETE)
-//5. show the first character's amiibo on the amiibo container (COMPLETE)
-//5.a. update amiibo name and image (COMPLETE)
-//5.b. update amiibo game list (COMPLETE)
-//5.c. select first game's usage and display under image (COMPLETE)
-//6. add filter 'change' action event to update characters based on selected game
-//7. add game 'click' action event to update amiibo based on selected game (COMPLETE)
-//8. stretch: add 'hover' action to rotate/wiggle amiibo when hovered (COMPLETE)
 
 //commented out API call & hard coded options into index.html to minimize API data usage during development
 // fetch(fetchGameSeriesURL).then(resp=>resp.json()).then(seriesList=>{
