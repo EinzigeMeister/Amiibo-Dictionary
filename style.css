@@ -60,6 +60,14 @@ title {
     width: 250px;
     word-wrap: break-word;
 }
+.instructions {
+    position: relative;
+    width: 500px;
+    left: -100px;
+    text-align: center;
+    font-weight:bold;
+    font-size: 1.5em
+}
 .sidebar {
     padding-top: 40px;
     position: absolute; /*required to force other elements away*/

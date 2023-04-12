@@ -5,11 +5,6 @@ const fetchGameSeriesURL = `https://www.amiiboapi.com/api/gameseries`
 let amiiboLib = []
 let filteredCharacters = []
 let gameList = []
-/*removing elements example
-while(gameFilter.length>0){
-    gameFilter.removeChild(gameFilter.firstElementChild)
-}
-*/
 //1. generate amiibo object list (COMPLETE)
 //2. generate filter options (COMPLETE)
 //3. set first filter option to selected (COMPLETE)
@@ -78,26 +73,30 @@ function clearCharacterList(){
         characterList.removeChild(characterList.firstElementChild)
     }
 }
-//add action event for button 'click' to change selected Amiibo
 function refreshCharacterList(){
+    //creates a modified array of selected filter
     filteredCharacters = amiiboLib.filter(amiibo=>{
-        //insert logic here check each amiibo's gameSeries element against the selected filter 
         if(amiibo.gameSeries===gameFilter.value)  return true
         else return false
     })
     filteredCharacters.sort((a, b) => a.name.localeCompare(b.name))
+    //displays each character from the array
     filteredCharacters.forEach(character=>{
         const characterLi = document.createElement('li')
         const characterButton = document.createElement('button')
         characterButton.innerHTML = character.name
-        //characterButton.setAttribute('class', 'character-list')
+        characterButton.addEventListener('click', resetSelectedAmiibo.bind(null, character))
         characterLi.append(characterButton)
         characterList.append(characterLi)
     })
+    //Inializes the first character as the displayed Amiibo
     resetSelectedAmiibo(filteredCharacters[0])
 }
 function resetSelectedAmiibo(character){
     //TODO - clear current game list
+    clearGameList('3ds')
+    clearGameList('switch')
+    clearGameList('wii-u')
     //add new game list and update Amiibo
     nullGame = {
         gameName: 'None',
@@ -108,7 +107,7 @@ function resetSelectedAmiibo(character){
     document.getElementById('amiibo-image').src=character.image
     document.getElementById('amiibo-name').innerHTML=character.name
     firstDisplayed = false
-
+    //check each console games from object and add them to the list, if none are found, add a default "none" game. Display the first game's usage
     if(character.gamesSwitch.length>0){
         character.gamesSwitch.forEach(game=>addGame(game, 'switch'))
         updateUsage(character.gamesSwitch[0])
@@ -134,6 +133,10 @@ function resetSelectedAmiibo(character){
     }
     else addGame(nullGame, 'wii-u')
     
+}
+function clearGameList(system){
+    const games = document.getElementById(`game-list-${system}`)
+    games.replaceChildren(`${system}`.toUpperCase())    
 }
 function addGame(game, system){
     const newGameObj = document.createElement('p')
