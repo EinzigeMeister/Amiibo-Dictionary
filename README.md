@@ -7,3 +7,6 @@ Selecting a game category will display the list of characters in that category<b
 Selecting a character will update the displayed Amiibo and populate a list of games that Amiibo is associated to<br>
 Selecting a game will update how that Amiibo is used in the game<br>
 Hover over the Amiibo and see what happens! <br>
+
+Ex:<br>
+![](https://github.com/EricsFlatironAcct/Amiibo-Dictionary/blob/main/ezgif.com-crop.gif)
