@@ -1,4 +1,4 @@
-# flatiron-phase-1
+# Amiibo-Dictionary
  Find your favorite Amiibo!
 
 ## Usage
