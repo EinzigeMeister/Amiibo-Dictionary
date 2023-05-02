@@ -34,7 +34,7 @@ function clearGameFilter(){
 function refreshGameFilter(){
     gameOptions.forEach(option=>{
         const newOption = document.createElement('option')
-        newOption.innerHTML = option
+        newOption.textContent = option
         newOption.value = option
         gameFilter.append(newOption)
     })
@@ -59,7 +59,7 @@ function refreshCharacterList(seriesName){
     filteredCharacters.forEach(character=>{
         const characterLi = document.createElement('li')
         const characterButton = document.createElement('button')
-        characterButton.innerHTML = character.name
+        characterButton.textContent = character.name
         characterButton.addEventListener('click', resetSelectedAmiibo.bind(null, character))
         characterLi.append(characterButton)
         characterList.append(characterLi)
@@ -80,7 +80,7 @@ function resetSelectedAmiibo(character){
         }
     }
     document.getElementById('amiibo-image').src=character.image
-    document.getElementById('amiibo-name').innerHTML=character.name
+    document.getElementById('amiibo-name').textContent=character.name
     firstDisplayed = false
     //check each console games from object and add them to the list, if none are found, add a default "none" game. Display the first game's usage
     if(character.gamesSwitch.length>0){
@@ -115,7 +115,7 @@ function clearGameList(system){
 }
 function addGame(game, system){
     const newGameObj = document.createElement('p')
-    newGameObj.innerHTML = game.gameName
+    newGameObj.textContent = game.gameName
     //only add event listeners for valid games
     if(game.gameName.localeCompare('None')!=0){
         newGameObj.addEventListener('click', updateUsage.bind(null, game))
@@ -126,5 +126,5 @@ function addGame(game, system){
 function updateUsage(game){
     let usageText = game.amiiboUsage[0].Usage
     usageText = usageText.slice(0,1).toLowerCase() + usageText.slice(1)
-    document.getElementById('amiibo-usage').innerHTML= `In ${game.gameName}, you can ${usageText}`
+    document.getElementById('amiibo-usage').textContent= `In ${game.gameName}, you can ${usageText}`
 }
