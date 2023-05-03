@@ -69,7 +69,7 @@ function refreshCharacterList(filterName, filterType) {
     }
     else if (filterType.localeCompare("Character Name")==0){
         filteredCharacters = amiiboLib.filter(amiibo => {
-            return amiibo.character.toLowerCase().includes(filterName.toLowerCase())
+            return amiibo.name.toLowerCase().includes(filterName.toLowerCase())
         })
     }
     if (filteredCharacters.length>0)    
