@@ -2,8 +2,7 @@ console.log(`For more information about data drawn from this page, see https://w
 const gameFilter = document.getElementById('sidebar').querySelector('select');
 //Use filter to select game series and populate characters
 gameFilter.addEventListener('change', e => {
-    clearCharacterList()
-    refreshCharacterList(e.target.value)
+    refreshCharacterList(e.target.value, "Game Series")
 })
 const characterList = document.getElementById('character-list')
 let amiiboLib = []
@@ -21,7 +20,8 @@ refreshGameFilter();
 //obtain amiibos. The fetch from https://www.amiiboapi.com/api/amiibo/?showusage was used to generate local db
 fetch("http://localhost:3000/amiibo").then(resp => resp.json()).then(amiiboObjs => {
     amiiboLib = amiiboObjs
-    refreshCharacterList(gameFilter.value)
+    //refreshCharacterList(gameFilter.value, "Game Series")
+    refreshCharacterList("mario", "Character Name")
 })
 
 //Helper functions
@@ -47,13 +47,28 @@ function clearCharacterList() {
     characterList.replaceChildren()
 }
 
-function refreshCharacterList(seriesName) {
+function refreshCharacterList(filterName, filterType) {
     //creates a modified array of selected filter
     filteredCharacters = []
-    filteredCharacters = amiiboLib.filter(amiibo => {
-        if (amiibo.gameSeries.localeCompare(seriesName) == 0) return true
-        else return false
-    })
+    if (filterType.localeCompare("Game Series")==0){
+        filteredCharacters = amiiboLib.filter(amiibo => {
+            if (amiibo.gameSeries.localeCompare(filterName) == 0) return true
+            else return false
+        })
+    }
+    else if (filterType.localeCompare("Character Name")==0){
+        filteredCharacters = amiiboLib.filter(amiibo => {
+            return amiibo.character.toLowerCase().includes(filterName.toLowerCase())
+        })
+        console.log(filteredCharacters)
+        console.log(amiiboLib)
+    }
+    if (filteredCharacters.length>0)    
+        clearCharacterList()
+    else {
+        return 
+    }
+
     filteredCharacters.sort((a, b) => a.name.localeCompare(b.name))
     //displays each character from the array
     filteredCharacters.forEach(character => {
