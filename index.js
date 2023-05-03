@@ -17,6 +17,11 @@ gameOptions.sort();
 clearGameFilter();
 refreshGameFilter();
 
+//Add submit event for character search
+const characterSearch = document.getElementById('character-search')
+characterSearch.addEventListener('submit', handleCharacterSearch)
+
+
 //obtain amiibos. The fetch from https://www.amiiboapi.com/api/amiibo/?showusage was used to generate local db
 fetch("http://localhost:3000/amiibo").then(resp => resp.json()).then(amiiboObjs => {
     amiiboLib = amiiboObjs
@@ -25,6 +30,12 @@ fetch("http://localhost:3000/amiibo").then(resp => resp.json()).then(amiiboObjs 
 })
 
 //Helper functions
+function handleCharacterSearch(event){
+    event.preventDefault()
+    const characterToFind = document.getElementById("search-name").value
+    refreshCharacterList(characterToFind, "Character Name")
+}
+
 function clearGameFilter() {
     while (gameFilter.length > 0) {
         gameFilter.removeChild(gameFilter.firstElementChild)
@@ -60,8 +71,6 @@ function refreshCharacterList(filterName, filterType) {
         filteredCharacters = amiiboLib.filter(amiibo => {
             return amiibo.character.toLowerCase().includes(filterName.toLowerCase())
         })
-        console.log(filteredCharacters)
-        console.log(amiiboLib)
     }
     if (filteredCharacters.length>0)    
         clearCharacterList()
@@ -82,6 +91,7 @@ function refreshCharacterList(filterName, filterType) {
     //Inializes the first character as the displayed Amiibo
     resetSelectedAmiibo(filteredCharacters[0])
 }
+
 function resetSelectedAmiibo(character) {
     if (character == undefined) return
     clearGameList('3ds')
@@ -124,10 +134,12 @@ function resetSelectedAmiibo(character) {
     else addGame(nullGame, 'wii-u')
 
 }
+
 function clearGameList(system) {
     const games = document.getElementById(`game-list-${system}`)
     games.replaceChildren(`${system}`.toUpperCase())
 }
+
 function addGame(game, system) {
     const newGameObj = document.createElement('p')
     newGameObj.textContent = game.gameName
