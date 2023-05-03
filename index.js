@@ -62,7 +62,7 @@ function refreshCharacterList(filterName, filterType) {
     //creates a modified array of selected filter
     filteredCharacters = []
     if (filterType.localeCompare("Game Series")==0){
-        filteredCharacters = amiiboLib.filter(amiibo => {
+        filteredCharacters = amiiboLib.filter(amiibo => {aefawe 
             if (amiibo.gameSeries.localeCompare(filterName) == 0) return true
             else return false
         })
@@ -75,6 +75,7 @@ function refreshCharacterList(filterName, filterType) {
     if (filteredCharacters.length>0)    
         clearCharacterList()
     else {
+        window.alert("No characters found")
         return 
     }
 
