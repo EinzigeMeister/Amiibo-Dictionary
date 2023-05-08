@@ -134,6 +134,7 @@ function resetSelectedAmiibo(character) {
     }
     else addGame(nullGame, 'wii-u')
 
+    if(!firstDisplayed) updateUsage(undefined)
 }
 
 function clearGameList(system) {
@@ -152,6 +153,10 @@ function addGame(game, system) {
 }
 //updates the usage text for the selected game
 function updateUsage(game) {
+    if(game==undefined){
+        document.getElementById('amiibo-usage').textContent = `No games were found, guess this one is a regular toy.`
+        return
+    }
     let usageText = game.amiiboUsage[0].Usage
     usageText = usageText.slice(0, 1).toLowerCase() + usageText.slice(1)
     document.getElementById('amiibo-usage').textContent = `In ${game.gameName}, you can ${usageText}`
