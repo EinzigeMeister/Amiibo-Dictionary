@@ -1,6 +1,11 @@
 # Amiibo-Dictionary
  Find your favorite Amiibo! 
 
+## Installation
+Clone (or fork & clone to save changes) this repo onto your local machine. <br>
+Requires json-server running on the default port (localhost:3000). <br>
+Opening the index.html file in your default browser will load the application. <br>
+
 ## Usage
 This application utilizes json-server to store and display Amiibos. Activate json-server for db.json to enable app functionality.<br>
 Selecting a game category will display the list of characters in that category.<br>
