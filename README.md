@@ -16,3 +16,14 @@ Hover over the Amiibo and see what happens! <br>
 
 ![](https://github.com/EricsFlatironAcct/Amiibo-Dictionary/blob/main/ezgif.com-crop.gif) <br>
 Data for db.json was obtained from https://www.amiiboapi.com on 4/2/2023.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
