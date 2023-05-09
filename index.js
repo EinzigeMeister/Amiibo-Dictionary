@@ -70,7 +70,7 @@ function refreshCharacterList(filterName, filterType) {
     filteredCharacters = []
     if (filterType.localeCompare("Game Series")==0){
         filteredCharacters = amiiboLib.filter(amiibo => {
-            if (amiibo.gameSeries.localeCompare(filterName) == 0) return true
+            if (amiibo.gameSeries.toLowerCase().localeCompare(filterName.toLowerCase()) == 0) return true
             else return false
         })
     }
