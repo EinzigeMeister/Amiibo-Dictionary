@@ -1,4 +1,190 @@
 {
+	"series": [
+		{
+			"id": 1,
+			"name": "ARMS"
+		},
+		{
+			"id": 2,
+			"name": "Animal Crossing"
+		},
+		{
+			"id": 3,
+			"name": "Banjo Kazooie"
+		},
+		{
+			"id": 4,
+			"name": "Bayonetta"
+		},
+		{
+			"id": 5,
+			"name": "BoxBoy!"
+		},
+		{
+			"id": 6,
+			"name": "Breath of the Wild"
+		},
+		{
+			"id": 7,
+			"name": "Castlevania"
+		},
+		{
+			"id": 8,
+			"name": "Chibi Robo"
+		},
+		{
+			"id": 9,
+			"name": "Classic Nintendo"
+		},
+		{
+			"id": 10,
+			"name": "Dark Souls"
+		},
+		{
+			"id": 11,
+			"name": "Diablo"
+		},
+		{
+			"id": 12,
+			"name": "Donkey Kong"
+		},
+		{
+			"id": 13,
+			"name": "Dragon Quest"
+		},
+		{
+			"id": 14,
+			"name": "Earth Bound"
+		},
+		{
+			"id": 15,
+			"name": "F-Zero"
+		},
+		{
+			"id": 16,
+			"name": "Fatal Fury"
+		},
+		{
+			"id": 17,
+			"name": "Final Fantasy"
+		},
+		{
+			"id": 18,
+			"name": "Fire Emblem"
+		},
+		{
+			"id": 19,
+			"name": "Kellogs"
+		},
+		{
+			"id": 20,
+			"name": "Kid Icarus"
+		},
+		{
+			"id": 21,
+			"name": "Kirby"
+		},
+		{
+			"id": 22,
+			"name": "Mario Sports Superstars"
+		},
+		{
+			"id": 23,
+			"name": "Megaman"
+		},
+		{
+			"id": 24,
+			"name": "Metal Gear Solid"
+		},
+		{
+			"id": 25,
+			"name": "Metroid"
+		},
+		{
+			"id": 26,
+			"name": "Mii"
+		},
+		{
+			"id": 27,
+			"name": "Minecraft"
+		},
+		{
+			"id": 28,
+			"name": "Monster Hunter"
+		},
+		{
+			"id": 29,
+			"name": "Pac-man"
+		},
+		{
+			"id": 30,
+			"name": "Persona"
+		},
+		{
+			"id": 31,
+			"name": "Pikmin"
+		},
+		{
+			"id": 32,
+			"name": "Pokemon"
+		},
+		{
+			"id": 33,
+			"name": "Power Pros"
+		},
+		{
+			"id": 34,
+			"name": "Punch Out"
+		},
+		{
+			"id": 35,
+			"name": "Shovel Knight"
+		},
+		{
+			"id": 36,
+			"name": "Sonic"
+		},
+		{
+			"id": 37,
+			"name": "Splatoon"
+		},
+		{
+			"id": 38,
+			"name": "Star Fox"
+		},
+		{
+			"id": 39,
+			"name": "Street Fighter"
+		},
+		{
+			"id": 40,
+			"name": "Super Mario"
+		},
+		{
+			"id": 41,
+			"name": "Tekken"
+		},
+		{
+			"id": 42,
+			"name": "The Legend of Zelda"
+		},
+		{
+			"id": 43,
+			"name": "Wii Fit"
+		},
+		{
+			"id": 44,
+			"name": "Xenoblade"
+		},
+		{
+			"id": 45,
+			"name": "Yoshi's Woolly World"
+		},
+		{
+			"id": 46,
+			"name": "Yu-Gi-Oh!"
+		}
+	],
 	"amiibo": [
 		{
 			"amiiboSeries": "Super Smash Bros.",

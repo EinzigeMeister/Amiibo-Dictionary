@@ -8,15 +8,22 @@ const characterList = document.getElementById('character-list')
 let amiiboLib = []
 let filteredCharacters = []
 let gameList = []
-
-//Generate list of game series' to update filter 
-const gameOptionNodes = document.querySelectorAll('option')
 const gameOptions = []
-gameOptionNodes.forEach(option => gameOptions.push(option.value))
-gameOptions.sort();
-clearGameFilter();
-refreshGameFilter();
-
+//Generate list of game series' to update filter 
+fetch("http://localhost:3000/series").then(resp=>resp.json()).then(seriesArr=>{
+    seriesArr.forEach(series =>addGameToFilter(series))
+}).then(()=>{
+    gameOptions.sort();
+    clearGameFilter();
+    refreshGameFilter();
+})
+function addGameToFilter(series){
+    gameOptions.push(series.name)
+    newOption = document.createElement('option')
+    newOption.value = series.name
+    newOption.innerText = series.name
+    gameFilter.append(newOption)
+}
 //Add submit event for character search
 const characterSearch = document.getElementById('character-search')
 characterSearch.addEventListener('submit', handleCharacterSearch)
