@@ -21,7 +21,7 @@ title {
     object-fit: contain;
     transition: transform .3s ease-in-out;
 }
-.amiibo-image:hover{
+.amiibo-image:hover{ /*tip my hat to you ;)*/
     transform: rotate(30deg);
 }
 .amiibo-name {
