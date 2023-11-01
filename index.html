@@ -1,45 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <script defer src="index.js"></script>
     <title>Amiibo Selector</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="sidebar" class="sidebar">
-        <h2>Select a Game Series</h2>
-        <select name="game-filter">
-        </select>
-        <h2>Find a Character</h2>
-        <form id="character-search">
-            <div>
-                <label for="search-name">Character Name</label>
-                <input id="search-name" type="text">
-            </div>
-            <div>
-                <input type="submit" value="Search">
-            </div>
-        </form>
-        <h2>Choose Your Character</h2>
-        <div id="character-list" class ="character-list">
+      <h2>Select a Game Series</h2>
+      <select name="game-filter"></select>
+      <h2>Find a Character</h2>
+      <form id="character-search">
+        <div>
+          <label for="search-name">Character Name</label>
+          <input id="search-name" type="text" />
         </div>
+        <div>
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <h2>Choose Your Character</h2>
+      <div id="character-list" class="character-list"></div>
     </div>
     <div class="amiibo-container">
-        <p id="amiibo-name" class="amiibo-name"></p>
-        <img id="amiibo-image" class="amiibo-image" src="">
-        <br><br>
-        <p class="amiibo-usage" id="amiibo-usage"></p>
-        <br><br>
-        <p class="instructions">Select a game to see what the Amiibo does!</p>
-        <div id="game-list-switch" class="game-list-switch">
-        </div>
-        <div id="game-list-3ds" class="game-list-3ds">      
-        </div>
-        <div id="game-list-wii-u" class="game-list-wii-u">
-        </div>
+      <p id="amiibo-name" class="amiibo-name"></p>
+      <img id="amiibo-image" class="amiibo-image" src="" />
+      <br /><br />
+      <p class="amiibo-usage" id="amiibo-usage"></p>
+      <br /><br />
+      <p class="instructions">Select a game to see what the Amiibo does!</p>
+      <div id="game-list-switch" class="game-list-switch"></div>
+      <div id="game-list-3ds" class="game-list-3ds"></div>
+      <div id="game-list-wii-u" class="game-list-wii-u"></div>
     </div>
-</body>
+  </body>
 </html>
