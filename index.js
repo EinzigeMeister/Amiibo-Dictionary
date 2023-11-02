@@ -1,15 +1,44 @@
 console.log(`For more information about data drawn from this page, see https://www.amiiboapi.com/docs/`);
+const amiiboSeriesBackup = {
+  amiibo: [
+    { name: "Super Smash Bros." },
+    { name: "Super Mario Bros." },
+    { name: "Chibi-Robo!" },
+    { name: "Yoshi's Woolly World" },
+    { name: "Splatoon" },
+    { name: "Animal Crossing" },
+    { name: "8-bit Mario" },
+    { name: "Skylanders" },
+    { name: "Legend Of Zelda" },
+    { name: "Shovel Knight" },
+    { name: "Kirby" },
+    { name: "Pokemon" },
+    { name: "Mario Sports Superstars" },
+    { name: "Monster Hunter" },
+    { name: "BoxBoy!" },
+    { name: "Pikmin" },
+    { name: "Fire Emblem" },
+    { name: "Metroid" },
+    { name: "Others" },
+    { name: "Mega Man" },
+    { name: "Diablo" },
+    { name: "Power Pros" },
+    { name: "Monster Hunter Rise" },
+    { name: "Yu-Gi-Oh!" },
+    { name: "Super Nintendo World" },
+  ],
+};
 const gameFilter = document.getElementById("sidebar").querySelector("select");
-//Use filter to select game series and populate characters
+//Use filter to select amiibo series and populate characters
 gameFilter.addEventListener("change", (e) => {
-  refreshCharacterList(e.target.value, "Game Series");
+  refreshCharacterList(e.target.value, "Series");
 });
 const characterList = document.getElementById("character-list");
 let amiiboLib = [];
 let filteredCharacters = [];
 let gameList = [];
 const gameOptions = [];
-//Generate list of game series' to update filter
+//Generate list of amiibo series' to update filter
 fetch("https://www.amiiboapi.com/api/amiiboseries")
   .then((resp) => resp.json())
   .then((seriesArr) => {
@@ -36,8 +65,8 @@ fetch("https://www.amiiboapi.com/api/amiibo/?showusage")
   .then((resp) => resp.json())
   .then((amiiboObjs) => {
     amiiboLib = amiiboObjs["amiibo"];
-    //refreshCharacterList(gameFilter.value, "Game Series")
-    refreshCharacterList("mario", "Character Name");
+    refreshCharacterList(gameFilter.value, "Series");
+    //refreshCharacterList("mario", "Character Name");
   });
 
 //Helper functions
@@ -52,7 +81,7 @@ function clearGameFilter() {
     gameFilter.removeChild(gameFilter.firstElementChild);
   }
 }
-//update the filter if any new game series are added
+//update the filter if any new amiibo series are added
 function refreshGameFilter() {
   gameOptions.forEach((option) => {
     const newOption = document.createElement("option");
@@ -72,9 +101,10 @@ function clearCharacterList() {
 function refreshCharacterList(filterName, filterType) {
   //creates a modified array of selected filter
   filteredCharacters = [];
-  if (filterType.localeCompare("Game Series") == 0) {
+  if (filterType.localeCompare("Series") == 0) {
+    console.log(amiiboLib);
     filteredCharacters = amiiboLib.filter((amiibo) => {
-      if (amiibo.gameSeries.toLowerCase().localeCompare(filterName.toLowerCase()) == 0) return true;
+      if (amiibo.amiiboSeries.toLowerCase().localeCompare(filterName.toLowerCase()) == 0) return true;
       else return false;
     });
   } else if (filterType.localeCompare("Character Name") == 0) {
