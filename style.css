@@ -77,6 +77,7 @@ select {
 }
 .instructions {
   position: relative;
+  overflow-y: scroll;
   width: 100vw;
   height: 10vh;
   text-align: center;
