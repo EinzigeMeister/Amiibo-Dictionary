@@ -102,7 +102,6 @@ function refreshCharacterList(filterName, filterType) {
   //creates a modified array of selected filter
   filteredCharacters = [];
   if (filterType.localeCompare("Series") == 0) {
-    console.log(amiiboLib);
     filteredCharacters = amiiboLib.filter((amiibo) => {
       if (amiibo.amiiboSeries.toLowerCase().localeCompare(filterName.toLowerCase()) == 0) return true;
       else return false;
