@@ -9,7 +9,7 @@
     <script defer src="index.js"></script>
     <title>Amiibo Selector</title>
   </head>
-  <body>
+  <body id="body">
     <div id="sidebar" class="sidebar">
       <h2>Select a Game Series</h2>
       <select name="game-filter"></select>
@@ -26,16 +26,18 @@
       <h2>Choose Your Character</h2>
       <div id="character-list" class="character-list"></div>
     </div>
-    <div class="amiibo-container">
+    <div class="amiibo-container" id="amiibo-container">
       <p id="amiibo-name" class="amiibo-name"></p>
       <img id="amiibo-image" class="amiibo-image" src="" />
       <br /><br />
       <p class="amiibo-usage" id="amiibo-usage"></p>
       <br /><br />
       <p class="instructions">Select a game to see what the Amiibo does!</p>
-      <div id="game-list-switch" class="game-list-switch"></div>
-      <div id="game-list-3ds" class="game-list-3ds"></div>
-      <div id="game-list-wii-u" class="game-list-wii-u"></div>
+      <div id="game-list" class="'game-list">
+        <div id="game-list-switch" class="game-list-switch"></div>
+        <div id="game-list-3ds" class="game-list-3ds"></div>
+        <div id="game-list-wii-u" class="game-list-wii-u"></div>
+      </div>
     </div>
   </body>
 </html>
