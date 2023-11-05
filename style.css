@@ -90,7 +90,7 @@ li {
 .sidebar {
   padding-top: 1vh;
   position: absolute; /*required to force other elements away*/
-  height: 100vh;
+  height: 117vh;
   width: 25vw;
   color: Blue;
   overflow-x: hidden;
