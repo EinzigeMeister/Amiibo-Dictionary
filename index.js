@@ -31,11 +31,10 @@ const amiiboSeriesBackup = {
 const gameFilter = document.getElementById("sidebar").querySelector("select");
 //Use filter to select amiibo series and populate characters
 gameFilter.addEventListener("change", (e) => {
-  refreshCharacterList(e.target.value, "Series");
+  refreshCharacterList(e.target.value, "amiiboSeries");
 });
 const characterList = document.getElementById("character-list");
 let amiiboLib = [];
-let filteredCharacters = [];
 let gameList = [];
 const gameOptions = [];
 //Generate list of amiibo series' to update filter
@@ -65,7 +64,7 @@ fetch("https://www.amiiboapi.com/api/amiibo/?showusage")
   .then((resp) => resp.json())
   .then((amiiboObjs) => {
     amiiboLib = amiiboObjs["amiibo"];
-    refreshCharacterList(gameFilter.value, "Series");
+    refreshCharacterList(gameFilter.value, "amiiboSeries");
     //refreshCharacterList("mario", "Character Name");
   });
 
@@ -73,7 +72,7 @@ fetch("https://www.amiiboapi.com/api/amiibo/?showusage")
 function handleCharacterSearch(event) {
   event.preventDefault();
   const characterToFind = document.getElementById("search-name").value;
-  refreshCharacterList(characterToFind, "Character Name");
+  refreshCharacterList(characterToFind, "name");
 }
 
 function clearGameFilter() {
@@ -81,7 +80,7 @@ function clearGameFilter() {
     gameFilter.removeChild(gameFilter.firstElementChild);
   }
 }
-//update the filter if any new amiibo series are added
+
 function refreshGameFilter() {
   gameOptions.forEach((option) => {
     const newOption = document.createElement("option");
@@ -89,55 +88,30 @@ function refreshGameFilter() {
     newOption.value = option;
     gameFilter.append(newOption);
   });
-  //force a selected filter
   gameFilter[0].setAttribute("selected", "true");
 }
 
-//empties current character list
-function clearCharacterList() {
+function refreshCharacterList(filterName, filterType) {
   characterList.replaceChildren();
+  const filteredCharacters = amiiboLib.filter((amiibo) => amiibo[filterType].toLowerCase().includes(filterName.toLowerCase()));
+  filteredCharacters.sort((a, b) => a.name.localeCompare(b.name));
+  filteredCharacters.forEach((character) => AddToCharacterList(character));
+  resetSelectedAmiibo(filteredCharacters[0]);
 }
 
-function refreshCharacterList(filterName, filterType) {
-  //creates a modified array of selected filter
-  filteredCharacters = [];
-  if (filterType.localeCompare("Series") == 0) {
-    filteredCharacters = amiiboLib.filter((amiibo) => {
-      if (amiibo.amiiboSeries.toLowerCase().localeCompare(filterName.toLowerCase()) == 0) return true;
-      else return false;
-    });
-  } else if (filterType.localeCompare("Character Name") == 0) {
-    filteredCharacters = amiiboLib.filter((amiibo) => {
-      return amiibo.name.toLowerCase().includes(filterName.toLowerCase());
-    });
-  }
-  if (filteredCharacters.length > 0) clearCharacterList();
-  else {
-    clearCharacterList();
-    window.alert("No characters found");
-    return;
-  }
-
-  filteredCharacters.sort((a, b) => a.name.localeCompare(b.name));
-  //displays each character from the array
-  filteredCharacters.forEach((character) => {
-    const characterLi = document.createElement("li");
-    const characterButton = document.createElement("button");
-    characterButton.textContent = character.name;
-    characterButton.addEventListener("click", resetSelectedAmiibo.bind(null, character));
-    characterLi.append(characterButton);
-    characterList.append(characterLi);
-  });
-  //Inializes the first character as the displayed Amiibo
-  resetSelectedAmiibo(filteredCharacters[0]);
+function AddToCharacterList(character) {
+  const characterLi = document.createElement("li");
+  const characterButton = document.createElement("button");
+  characterButton.textContent = character.name;
+  characterButton.addEventListener("click", resetSelectedAmiibo.bind(null, character));
+  characterLi.append(characterButton);
+  characterList.append(characterLi);
 }
 
 function resetSelectedAmiibo(character) {
   if (character == undefined) return;
-  clearGameList("3ds");
-  clearGameList("switch");
-  clearGameList("wii-u");
-  //add new game list and update Amiibo
+  gameConsoles = ["Switch", "3DS", "WiiU"];
+  for (gameConsole of gameConsoles) clearGameList(gameConsole);
   nullGame = {
     gameName: "None",
     amiiboUsage: {
@@ -146,38 +120,23 @@ function resetSelectedAmiibo(character) {
   };
   document.getElementById("amiibo-image").src = character.image;
   document.getElementById("amiibo-name").textContent = character.name;
-  firstDisplayed = false;
+
   //check each console games from object and add them to the list, if none are found, add a default "none" game. Display the first game's usage
-  if (character.gamesSwitch.length > 0) {
-    character.gamesSwitch.forEach((game) => addGame(game, "switch"));
-    updateUsage(character.gamesSwitch[0]);
-    firstDisplayed = true;
-  } else addGame(nullGame, "switch");
-
-  if (character.games3DS.length > 0) {
-    character.games3DS.forEach((game) => addGame(game, "3ds"));
-    if (!firstDisplayed) {
-      updateUsage(character.games3DS[0]);
+  firstDisplayed = false;
+  for (gameConsole of gameConsoles) {
+    if (character["games" + gameConsole].length > 0) {
+      character["games" + gameConsole].forEach((game) => addGame(game, gameConsole));
+      if (!firstDisplayed) updateUsage(character["games" + gameConsole][0]);
       firstDisplayed = true;
-    }
-  } else addGame(nullGame, "3ds");
-
-  if (character.gamesWiiU.length > 0) {
-    character.gamesWiiU.forEach((game) => addGame(game, "wii-u"));
-    if (!firstDisplayed) {
-      updateUsage(character.games3DS[0]);
-      firstDisplayed = true;
-    }
-  } else addGame(nullGame, "wii-u");
-
+    } else addGame(nullGame, gameConsole);
+  }
   if (!firstDisplayed) updateUsage(undefined);
 }
 
-function clearGameList(system) {
-  const games = document.getElementById(`game-list-${system}`);
-  games.replaceChildren(`${system}`.toUpperCase());
+function clearGameList(gameConsole) {
+  const games = document.getElementById(`game-list-${gameConsole}`);
+  games.replaceChildren(`${gameConsole}`.toUpperCase());
 }
-
 function addGame(game, system) {
   const newGameObj = document.createElement("p");
   newGameObj.textContent = game.gameName;
