@@ -11,19 +11,17 @@ select {
   color: blue;
 }
 .amiibo-container {
-  padding: 0px 10px;
-  height: 50%;
-  width: 100vw;
+  width: 75vw;
   height: 100vh;
   position: relative;
-  left: 30vw;
+  left: 25vw;
   text-align: center;
 }
 .amiibo-name,
 .amiibo-usage,
 .instructions {
   left: 5vw;
-  width: 85vw;
+  width: 65vw;
   text-align: center;
 }
 
@@ -61,25 +59,23 @@ select {
   text-decoration: underline;
 }
 
-.game-list-3ds,
-.game-list-switch,
-.game-list-wii-u {
+.game-list-3DS,
+.game-list-Switch,
+.game-list-WiiU {
   position: absolute;
   size: 3rem;
   word-wrap: break-word;
   text-align: left;
-  width: 25vw;
+  width: 23vw;
   height: 40vh;
   overflow-y: scroll;
 }
-.game-list-switch {
-  left: 5vw;
+
+.game-list-3DS {
+  left: 25vw;
 }
-.game-list-3ds {
-  left: 35vw;
-}
-.game-list-wii-u {
-  left: 65vw;
+.game-list-WiiU {
+  left: 50vw;
 }
 .instructions {
   height: 10vh;
@@ -91,9 +87,10 @@ li {
   list-style-type: none;
 }
 .sidebar {
+  text-align: center;
   padding-top: 1vh;
   position: absolute; /*required to force other elements away*/
-  height: 117vh;
+  height: 110vh;
   width: 25vw;
   color: Blue;
   overflow-x: hidden;
