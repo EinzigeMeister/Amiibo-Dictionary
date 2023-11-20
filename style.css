@@ -1,19 +1,23 @@
+html {
+  overflow: hidden;
+}
 body {
   background: linear-gradient(90deg, rgba(0, 0, 255), rgba(0, 155, 255), rgba(30, 0, 200));
-  color: rgb(0, 255, 128);
-  width: 100vw;
-  height: 100vh;
-  overflow-y: scroll;
+  margin: 0;
+  margin-block: 0;
+}
+li {
+  list-style-type: none;
+}
+p {
   margin: 0;
 }
-select {
-  font-size: 1em;
-  color: blue;
-}
 .amiibo-container {
+  color: rgb(0, 255, 128);
   width: 75vw;
   height: 100vh;
   position: relative;
+  top: 0;
   left: 25vw;
   text-align: center;
 }
@@ -21,86 +25,84 @@ select {
 .amiibo-usage,
 .instructions {
   left: 5vw;
-  width: 65vw;
-  text-align: center;
 }
-
+.amiibo-name {
+  font-size: x-large;
+  height: 15vh;
+}
 .amiibo-image {
   height: 15vh;
-  width: 70vw;
   align-items: center;
   object-fit: contain;
   transition: transform 0.3s ease-in-out;
 }
 .amiibo-image:hover {
-  /*tip my hat to you ;)*/
   transform: rotate(30deg);
-}
-
-.amiibo-name {
-  font-size: 3em;
-  height: 15vh;
 }
 .amiibo-usage {
   word-wrap: break-word;
   overflow-y: scroll;
   height: 10vh;
 }
-
-.character-list button {
-  border: 0;
-  background-color: whitesmoke;
+.instructions {
+  height: 10vh;
+  text-align: center;
+  font-weight: bold;
+  font-size: medium;
 }
-.character-list button:hover {
-  background-color: salmon;
-}
-
-.game-header {
-  text-decoration: underline;
-}
-
 .game-list-3DS,
 .game-list-Switch,
 .game-list-WiiU {
   position: absolute;
-  size: 3rem;
+  font-size: small;
   word-wrap: break-word;
-  text-align: left;
   width: 23vw;
   height: 40vh;
   overflow-y: scroll;
+  background-color: transparent;
 }
+.game-list * {
+  background-color: transparent;
 
+  border: 0.1vh, solid, rgb(0, 255, 128);
+}
+.game-list-3DS :hover,
+.game-list-Switch :hover,
+.game-list-WiiU :hover {
+  background-color: rgb(0, 155, 255);
+}
 .game-list-3DS {
   left: 25vw;
 }
 .game-list-WiiU {
   left: 50vw;
 }
-.instructions {
-  height: 10vh;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.5em;
-}
-li {
-  list-style-type: none;
-}
 .sidebar {
   text-align: center;
   padding-top: 1vh;
-  position: absolute; /*required to force other elements away*/
-  height: 110vh;
+  position: absolute;
+  height: 99vh;
   width: 25vw;
   color: Blue;
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: pink;
-  size: 0.1vw;
   z-index: 1;
   top: 0;
   left: 0;
 }
+.sidebar h2 {
+  font-size: large;
+}
 .sidebar select {
+  font-size: medium;
+  color: blue;
+}
+.character-list button {
+  border: 0;
   background-color: pink;
+  color: blue;
+}
+.character-list button:hover {
+  background-color: salmon;
 }
