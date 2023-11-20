@@ -1,94 +1,72 @@
 console.log(`For more information about data drawn from this page, see https://www.amiiboapi.com/docs/`);
-const amiiboSeriesBackup = {
-  amiibo: [
-    { name: "Super Smash Bros." },
-    { name: "Super Mario Bros." },
-    { name: "Chibi-Robo!" },
-    { name: "Yoshi's Woolly World" },
-    { name: "Splatoon" },
-    { name: "Animal Crossing" },
-    { name: "8-bit Mario" },
-    { name: "Skylanders" },
-    { name: "Legend Of Zelda" },
-    { name: "Shovel Knight" },
-    { name: "Kirby" },
-    { name: "Pokemon" },
-    { name: "Mario Sports Superstars" },
-    { name: "Monster Hunter" },
-    { name: "BoxBoy!" },
-    { name: "Pikmin" },
-    { name: "Fire Emblem" },
-    { name: "Metroid" },
-    { name: "Others" },
-    { name: "Mega Man" },
-    { name: "Diablo" },
-    { name: "Power Pros" },
-    { name: "Monster Hunter Rise" },
-    { name: "Yu-Gi-Oh!" },
-    { name: "Super Nintendo World" },
-  ],
-};
-const gameFilter = document.getElementById("sidebar").querySelector("select");
-//Use filter to select amiibo series and populate characters
-gameFilter.addEventListener("change", (e) => {
-  refreshCharacterList(e.target.value, "amiiboSeries");
-});
-const characterList = document.getElementById("character-list");
+let seriesFilter, characterList, characterSearch;
 let amiiboLib = [];
 let gameList = [];
-const gameOptions = [];
-//Generate list of amiibo series' to update filter
-fetch("https://www.amiiboapi.com/api/amiiboseries")
-  .then((resp) => resp.json())
-  .then((seriesArr) => {
-    seriesArr["amiibo"].forEach((series) => addGameToFilter(series));
-  })
-  .then(() => {
-    gameOptions.sort();
-    clearGameFilter();
-    refreshGameFilter();
-  });
-function addGameToFilter(series) {
-  gameOptions.push(series.name);
-  newOption = document.createElement("option");
-  newOption.value = series.name;
-  newOption.innerText = series.name;
-  gameFilter.append(newOption);
+const seriesOptions = [];
+const nullGame = {
+  gameName: "None",
+  amiiboUsage: [
+    {
+      Usage: "We're still learning what this Amiibo does. Come back later and check again!",
+    },
+  ],
+};
+
+init();
+
+async function init() {
+  getSideBarElements();
+  addEventListeners();
+  await buildSeriesList();
+  await fetchAmiibos();
+  refreshseriesFilter();
+  refreshCharacterList(seriesFilter.value, "amiiboSeries");
 }
-//Add submit event for character search
-const characterSearch = document.getElementById("character-search");
-characterSearch.addEventListener("submit", handleCharacterSearch);
 
-//obtain amiibos. The fetch from https://www.amiiboapi.com/api/amiibo/?showusage was used to generate local db
-fetch("https://www.amiiboapi.com/api/amiibo/?showusage")
-  .then((resp) => resp.json())
-  .then((amiiboObjs) => {
-    amiiboLib = amiiboObjs["amiibo"];
-    refreshCharacterList(gameFilter.value, "amiiboSeries");
-    //refreshCharacterList("mario", "Character Name");
-  });
+function getSideBarElements() {
+  seriesFilter = document.getElementById("sidebar").querySelector("select");
+  characterSearch = document.getElementById("character-search");
+  characterList = document.getElementById("character-list");
+}
 
-//Helper functions
+function addEventListeners() {
+  seriesFilter.addEventListener("change", (e) => refreshCharacterList(e.target.value, "amiiboSeries"));
+  characterSearch.addEventListener("submit", handleCharacterSearch);
+}
+
+async function buildSeriesList() {
+  const seriesArray = await fetchSeriesList();
+  seriesArray.forEach((series) => seriesOptions.push(series.name));
+  seriesOptions.sort();
+}
+
+async function fetchSeriesList() {
+  seriesFetch = await fetch("https://www.amiiboapi.com/api/amiiboseries");
+  seriesJSON = await seriesFetch.json();
+  return seriesJSON["amiibo"];
+}
+
+async function fetchAmiibos() {
+  amiiboFetch = await fetch("https://www.amiiboapi.com/api/amiibo/?showusage");
+  amiiboJSON = await amiiboFetch.json();
+  amiiboLib = amiiboJSON["amiibo"];
+}
+
 function handleCharacterSearch(event) {
   event.preventDefault();
   const characterToFind = document.getElementById("search-name").value;
   refreshCharacterList(characterToFind, "name");
 }
 
-function clearGameFilter() {
-  while (gameFilter.length > 0) {
-    gameFilter.removeChild(gameFilter.firstElementChild);
-  }
-}
-
-function refreshGameFilter() {
-  gameOptions.forEach((option) => {
+function refreshseriesFilter() {
+  while (seriesFilter.length > 0) seriesFilter.removeChild(seriesFilter.firstElementChild);
+  seriesOptions.forEach((series) => {
     const newOption = document.createElement("option");
-    newOption.textContent = option;
-    newOption.value = option;
-    gameFilter.append(newOption);
+    newOption.textContent = series;
+    newOption.value = series;
+    seriesFilter.append(newOption);
   });
-  gameFilter[0].setAttribute("selected", "true");
+  seriesFilter[0].setAttribute("selected", "true");
 }
 
 function refreshCharacterList(filterName, filterType) {
@@ -110,14 +88,8 @@ function AddToCharacterList(character) {
 
 function resetSelectedAmiibo(character) {
   if (character == undefined) return;
-  gameConsoles = ["Switch", "3DS", "WiiU"];
+  const gameConsoles = ["Switch", "3DS", "WiiU"];
   for (gameConsole of gameConsoles) clearGameList(gameConsole);
-  nullGame = {
-    gameName: "None",
-    amiiboUsage: {
-      usage: "No game selected. Select a game to show usage",
-    },
-  };
   document.getElementById("amiibo-image").src = character.image;
   document.getElementById("amiibo-name").textContent = character.name;
 
@@ -130,7 +102,7 @@ function resetSelectedAmiibo(character) {
       firstDisplayed = true;
     } else addGame(nullGame, gameConsole);
   }
-  if (!firstDisplayed) updateUsage(undefined);
+  if (!firstDisplayed) updateUsage(nullGame);
 }
 
 function clearGameList(gameConsole) {
@@ -138,21 +110,18 @@ function clearGameList(gameConsole) {
   games.replaceChildren(`${gameConsole}`.toUpperCase());
 }
 function addGame(game, system) {
-  const newGameObj = document.createElement("p");
-  newGameObj.textContent = game.gameName;
-  //only add event listeners for valid games
+  const newGameLi = document.createElement("li");
+  newGameLi.textContent = game.gameName;
   if (game.gameName.localeCompare("None") != 0) {
-    newGameObj.addEventListener("click", updateUsage.bind(null, game));
+    newGameLi.addEventListener("click", updateUsage.bind(null, game));
   }
-  document.getElementById(`game-list-${system}`).append(newGameObj);
+  document.getElementById(`game-list-${system}`).append(newGameLi);
 }
 //updates the usage text for the selected game
 function updateUsage(game) {
-  if (game == undefined) {
-    document.getElementById("amiibo-usage").textContent = `No games were found, guess this one is a regular toy.`;
-    return;
-  }
-  let usageText = game.amiiboUsage[0].Usage;
-  usageText = usageText.slice(0, 1).toLowerCase() + usageText.slice(1);
-  document.getElementById("amiibo-usage").textContent = `In ${game.gameName}, you can ${usageText}`;
+  let usageText =
+    game.gameName !== "None"
+      ? `In ${game.gameName}, you can ${game.amiiboUsage[0].Usage}`
+      : "We're still learning what this Amiibo does. Come back later and check again!";
+  document.getElementById("amiibo-usage").textContent = usageText;
 }
