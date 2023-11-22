@@ -4,7 +4,7 @@ Find your favorite Amiibo and see what it can do for you!
 
 ## Installation
 
-You can view this website on [Render](https://amiibo-selector.onrender.com/)! <br>
+You can view this website on [Render](https://amiibo-selector.onrender.com/) or [GitHub Pages](https://einzigemeister.github.io/Amiibo-Dictionary/)! <br>
 Clone (or fork & clone to save changes) this repo onto your local machine. <br>
 Opening the index.html file in your default browser will load the application. <br>
 
