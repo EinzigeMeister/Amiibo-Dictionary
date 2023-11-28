@@ -63,8 +63,7 @@ p {
 }
 .game-list * {
   background-color: transparent;
-
-  border: 0.1vh, solid, rgb(0, 255, 128);
+  border: 0.1vh solid rgb(0, 255, 128);
 }
 .game-list-3DS :hover,
 .game-list-Switch :hover,
