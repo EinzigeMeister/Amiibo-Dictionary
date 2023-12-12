@@ -121,7 +121,7 @@ function addGame(game, system) {
 function updateUsage(game) {
   let usageText =
     game.gameName !== "None"
-      ? `In ${game.gameName}, you can ${game.amiiboUsage[0].Usage}`
+      ? `In ${game.gameName} you can ${game.amiiboUsage[0].Usage.slice(0, 1).toLowerCase() + game.amiiboUsage[0].Usage.slice(1)}`
       : "We're still learning what this Amiibo does. Come back later and check again!";
   document.getElementById("amiibo-usage").textContent = usageText;
 }
