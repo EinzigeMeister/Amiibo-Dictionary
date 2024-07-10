@@ -19,7 +19,7 @@ async function init() {
   addEventListeners();
   await buildSeriesList();
   await fetchAmiibos();
-  refreshseriesFilter();
+  refreshSeriesFilter();
   refreshCharacterList(seriesFilter.value, "amiiboSeries");
 }
 
@@ -58,7 +58,7 @@ function handleCharacterSearch(event) {
   refreshCharacterList(characterToFind, "name");
 }
 
-function refreshseriesFilter() {
+function refreshSeriesFilter() {
   while (seriesFilter.length > 0) seriesFilter.removeChild(seriesFilter.firstElementChild);
   seriesOptions.forEach((series) => {
     const newOption = document.createElement("option");
@@ -73,11 +73,11 @@ function refreshCharacterList(filterName, filterType) {
   characterList.replaceChildren();
   const filteredCharacters = amiiboLib.filter((amiibo) => amiibo[filterType].toLowerCase().includes(filterName.toLowerCase()));
   filteredCharacters.sort((a, b) => a.name.localeCompare(b.name));
-  filteredCharacters.forEach((character) => AddToCharacterList(character));
+  filteredCharacters.forEach((character) => addToCharacterList(character));
   resetSelectedAmiibo(filteredCharacters[0]);
 }
 
-function AddToCharacterList(character) {
+function addToCharacterList(character) {
   const characterLi = document.createElement("li");
   const characterButton = document.createElement("button");
   characterButton.textContent = character.name;
